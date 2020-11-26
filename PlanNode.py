@@ -7,6 +7,6 @@ class PlanNode:
         self.rate_area = rate_area
 
     def __str__(self):
-        return f"[rate: {self.rate}, rate_area: {self.rate_area}, state: {self.state}]"
+        return f"|rate: {self.rate}, rate_area: {self.rate_area}, state: {self.state}|"
 
     __repr__ = __str__
