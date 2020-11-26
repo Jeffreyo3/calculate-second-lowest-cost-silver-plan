@@ -21,6 +21,7 @@ def find_matching_rate_area(state_plan_arr, rate_area):
 
     return None
 
+
 plans = {}
 plansHeader = None
 with open("./data/plans.csv") as csvPlans:
@@ -74,7 +75,6 @@ slcspHeader = None
 with open("./data/slcsp.csv") as csvslcsp:
     readCSVslcsp = csv.reader(csvslcsp, delimiter=",")
     slcspHeader = next(readCSVslcsp)
-    count = 0;
     slcsp.append(f"{slcspHeader[0]},{slcspHeader[1]}")
     for row in readCSVslcsp:
 
@@ -89,8 +89,6 @@ with open("./data/slcsp.csv") as csvslcsp:
                         slcsp.append(f"{row[0]},")
                     else:
                         matchList = find_matching_rate_area(plans[zips[row[0]].state], zips[row[0]].rate_area)
-                        print(row[0])
-                        print(matchList)
                         if matchList is not None:
                             slcsp.append(f"{row[0]},{matchList.rate}")
                         else:
@@ -107,7 +105,7 @@ with open("./data/slcsp.csv") as csvslcsp:
                     if z.state != state or z.rate_area != rate_area:
                         isSame = False
 
-                if(isSame):
+                if (isSame):
                     matchList = find_matching_rate_area(plans[state], rate_area)
                     if matchList is not None:
                         slcsp.append(f"{row[0]},{matchList.rate}")
@@ -119,15 +117,7 @@ with open("./data/slcsp.csv") as csvslcsp:
                     slcsp.append(f"{row[0]},")
         else:
             slcsp.append(f"{row[0]},")
-        count +=1
-        print("*****************")
 
-# print(plans["GA"])
-# print(slcsp)
-# print(len(slcsp)) # expected 51
-# print(count)
-
-# numpy.savetxt("output.csv", slcsp, delimiter=",", fmt="%s", header=slcspHeader)
 with open("output.csv", 'w') as myfile:
     wr = csv.writer(myfile, quoting=csv.QUOTE_NONE, delimiter='\n')
     wr.writerow(slcsp)
